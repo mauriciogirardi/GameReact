@@ -1,0 +1,9 @@
+@keyframes hero-anomation {
+	from {
+		background-position-x: 0;
+	}
+
+	to {
+		background-position-x: -192px;
+	}
+}
