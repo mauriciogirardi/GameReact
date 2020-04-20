@@ -4,10 +4,17 @@ import useEnemyMoviment from "../../hooks/useEnemyMoviment";
 
 import "./index.css";
 
-const initialPosition = { x: 5, y: 10 };
+// const moviment = {
+//   position: { x: 5, y: 10 },
+//   direction: EDirection.RIGHT,
+// };
 
-const MiniDemon = () => {
-  const { direction, positionState } = useEnemyMoviment(initialPosition);
+interface IProps {
+  initialPosition: { x: number; y: number };
+}
+
+const MiniDemon = (props: IProps) => {
+  const moviment = useEnemyMoviment(props.initialPosition);
 
   return (
     <div
@@ -19,9 +26,11 @@ const MiniDemon = () => {
         width: TILE_SIZE,
         height: TILE_SIZE + HEAD_OFFSET,
         position: "absolute",
-        bottom: TILE_SIZE * positionState.y,
-        left: TILE_SIZE * positionState.x,
-        transform: `scaleX(${direction === EDirection.RIGHT ? 1 : -1})`,
+        top: TILE_SIZE * moviment.positionState.y,
+        left: TILE_SIZE * moviment.positionState.x,
+        transform: `scaleX(${
+          moviment.direction === EDirection.RIGHT ? 1 : -1
+        })`,
       }}
     />
   );

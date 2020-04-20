@@ -19,7 +19,7 @@ const Hero = () => {
         width: TILE_SIZE,
         height: TILE_SIZE + HEAD_OFFSET,
         position: "absolute",
-        bottom: TILE_SIZE * positionState.y,
+        top: TILE_SIZE * positionState.y,
         left: TILE_SIZE * positionState.x,
         transform: `scaleX(${direction === EDirection.RIGHT ? 1 : -1})`,
         zIndex: 1,

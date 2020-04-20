@@ -21,7 +21,7 @@ const Demon = () => {
         width: DEMON_TILE_SIZE,
         height: DEMON_TILE_SIZE,
         position: "absolute",
-        bottom: TILE_SIZE * positionState.y,
+        top: TILE_SIZE * positionState.y,
         left: TILE_SIZE * positionState.x,
         transform: `scaleX(${direction === EDirection.RIGHT ? 1 : -1})`,
       }}

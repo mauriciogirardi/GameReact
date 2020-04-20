@@ -9,6 +9,11 @@ const useHeroMoviment = (initialPosition: { x: number; y: number }) => {
 
   useEventListener("keydown", (event: React.KeyboardEvent<HTMLDivElement>) => {
     const directionKey = event.key as EDirection;
+
+    if (directionKey.indexOf("Arrow") === -1) {
+      return;
+    }
+
     const nextPsition = handleNextPosition(directionKey, positionState);
 
     setDirection(directionKey);
