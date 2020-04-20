@@ -8,10 +8,12 @@ import {
 import "./index.css";
 import useEnemyMoviment from "../../hooks/useEnemyMoviment";
 
-const initialPosition = { x: 12, y: 15 };
+interface IProps {
+  initialPosition: { x: number; y: number };
+}
 
-const Demon = () => {
-  const { direction, positionState } = useEnemyMoviment(initialPosition);
+export default (props: IProps) => {
+  const { direction, positionState } = useEnemyMoviment(props.initialPosition);
   return (
     <div
       style={{
@@ -28,5 +30,3 @@ const Demon = () => {
     />
   );
 };
-
-export default Demon;

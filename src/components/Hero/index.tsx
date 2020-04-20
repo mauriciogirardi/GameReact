@@ -4,10 +4,12 @@ import useHeroMoviment from "../../hooks/useHeroMoviment";
 
 import "./index.css";
 
-const initialPosition = { x: 9, y: 3 };
+interface IProps {
+  initialPosition: { x: number; y: number };
+}
 
-const Hero = () => {
-  const { positionState, direction } = useHeroMoviment(initialPosition);
+export default (props: IProps) => {
+  const { positionState, direction } = useHeroMoviment(props.initialPosition);
 
   return (
     <div
@@ -19,7 +21,7 @@ const Hero = () => {
         width: TILE_SIZE,
         height: TILE_SIZE + HEAD_OFFSET,
         position: "absolute",
-        top: TILE_SIZE * positionState.y,
+        top: TILE_SIZE * positionState.y - HEAD_OFFSET,
         left: TILE_SIZE * positionState.x,
         transform: `scaleX(${direction === EDirection.RIGHT ? 1 : -1})`,
         zIndex: 1,
@@ -27,5 +29,3 @@ const Hero = () => {
     />
   );
 };
-
-export default Hero;

@@ -2,7 +2,11 @@ import React from "react";
 import { TILE_SIZE } from "../../settings/constants";
 import "./index.css";
 
-const Trap = () => {
+interface IProps {
+  initialPosition: { x: number; y: number };
+}
+
+export default (props: IProps) => {
   return (
     <div
       style={{
@@ -12,11 +16,9 @@ const Trap = () => {
         width: TILE_SIZE,
         height: 100,
         position: "absolute",
-        top: TILE_SIZE * 5,
-        left: TILE_SIZE * 15,
+        top: TILE_SIZE * props.initialPosition.y,
+        left: TILE_SIZE * props.initialPosition.x,
       }}
     />
   );
 };
-
-export default Trap;

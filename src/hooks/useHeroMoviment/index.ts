@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import useEventListener from "@use-it/event-listener";
 import { EDirection } from "../../settings/constants";
-import { handleNextPosition } from "../../contexts/canvas/helpers";
+import {
+  handleNextPosition,
+  checkValueMoviment,
+} from "../../contexts/canvas/helpers";
 
-const useHeroMoviment = (initialPosition: { x: number; y: number }) => {
+export default (initialPosition: { x: number; y: number }) => {
   const [positionState, setPositionState] = useState(initialPosition);
   const [direction, setDirection] = useState(EDirection.RIGHT);
 
@@ -14,10 +17,14 @@ const useHeroMoviment = (initialPosition: { x: number; y: number }) => {
       return;
     }
 
-    const nextPsition = handleNextPosition(directionKey, positionState);
+    const nextPosition = handleNextPosition(directionKey, positionState);
 
-    setDirection(directionKey);
-    setPositionState(nextPsition);
+    const isValidMoviment = checkValueMoviment(nextPosition);
+
+    if(isValidMoviment) {
+      setDirection(directionKey);
+      setPositionState(nextPosition);
+    }  
   });
 
   return {
@@ -25,5 +32,3 @@ const useHeroMoviment = (initialPosition: { x: number; y: number }) => {
     direction: direction,
   };
 };
-
-export default useHeroMoviment;

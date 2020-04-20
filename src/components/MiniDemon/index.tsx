@@ -13,7 +13,7 @@ interface IProps {
   initialPosition: { x: number; y: number };
 }
 
-const MiniDemon = (props: IProps) => {
+export default (props: IProps) => {
   const moviment = useEnemyMoviment(props.initialPosition);
 
   return (
@@ -26,7 +26,7 @@ const MiniDemon = (props: IProps) => {
         width: TILE_SIZE,
         height: TILE_SIZE + HEAD_OFFSET,
         position: "absolute",
-        top: TILE_SIZE * moviment.positionState.y,
+        top: TILE_SIZE * moviment.positionState.y - HEAD_OFFSET,
         left: TILE_SIZE * moviment.positionState.x,
         transform: `scaleX(${
           moviment.direction === EDirection.RIGHT ? 1 : -1
@@ -35,5 +35,3 @@ const MiniDemon = (props: IProps) => {
     />
   );
 };
-
-export default MiniDemon;
