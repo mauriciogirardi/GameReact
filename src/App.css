@@ -1,8 +1,7 @@
 .App {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: #333;
-	height: 100vh;
-	color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #333;
+  color: #fff;
 }

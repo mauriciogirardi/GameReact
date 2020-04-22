@@ -14,6 +14,7 @@ interface IProps {
 
 export default (props: IProps) => {
   const { direction, positionState } = useEnemyMoviment(props.initialPosition);
+
   return (
     <div
       style={{

@@ -23,7 +23,12 @@ export default (initialPosition: { x: number; y: number }) => {
       setDirection(randomDirection);
       setPositionState(nextPosition);
     }
-  }, 2000);
+
+    if (nextMove.dead) {
+      alert("Você morreu!");
+      window.location.reload();
+    }
+  }, 1000);
 
   return {
     positionState: positionState,

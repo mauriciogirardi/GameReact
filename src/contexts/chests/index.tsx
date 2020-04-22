@@ -8,19 +8,30 @@ export const ChestsContext = createContext({
   totalChest: 0,
   opendChests: {
     total: 0,
-    position: [],
+    positions: [],
   },
-  updateOpendChests: () => null,
+  updateOpendChests: (position) => null,
 });
 
 const ChestsProvider = (props: IProps) => {
   const [chestsState, setChestsState] = useState({
-    totalChest: 2,
+    totalChest: 3,
     opendChests: {
       total: 0,
-      position: [],
+      positions: [],
     },
-    updateOpendChests: () => {},
+    updateOpendChests: (position) => {
+      setChestsState((prevState) => {
+        return {
+          totalChest: prevState.totalChest,
+          opendChests: {
+            total: prevState.opendChests.total + 1,
+            positions: prevState.opendChests.positions.concat(position),
+          },
+          updateOpendChests: prevState.updateOpendChests,
+        };
+      });
+    },
   });
 
   return (

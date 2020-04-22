@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Hero from "../Hero";
 import MiniDemon from "../MiniDemon";
 import Demon from "../Demon";
@@ -6,8 +6,7 @@ import Trap from "../Trap";
 import Chest from "../Chest";
 import { canvas, ECanvas } from "../../contexts/canvas/helpers";
 import { GAME_SIZE } from "../../settings/constants";
-
-import "./index.css";
+import { ChestsContext } from "../../contexts/chests";
 
 const getCanvasMap = () => {
   const elementArray = [];
@@ -50,15 +49,30 @@ const getCanvasMap = () => {
 const elementArray = getCanvasMap();
 
 export default () => {
+  const chestsContext = useContext(ChestsContext);
+
   return (
-    <div className="containerBoard">
+    <>
       {elementArray}
+
+      {chestsContext.totalChest === chestsContext.opendChests.total && (
+        <img
+          src="./assets/DOOR-OPEN.png"
+          alt="door opened"
+          style={{
+            position: "absolute",
+            left: 575,
+            top: 0,
+          }}
+        />
+      )}
+
       <img
         src="./assets/tileset.gif"
         alt="board"
         width={GAME_SIZE}
         height={GAME_SIZE}
       />
-    </div>
+    </>
   );
 };

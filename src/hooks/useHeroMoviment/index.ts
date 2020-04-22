@@ -31,10 +31,19 @@ export default (initialPosition: { x: number; y: number }) => {
 
     if (nextMove.dead) {
       alert("Você morreu!");
+      window.location.reload();
     }
 
     if (nextMove.chest) {
-      chestsContext.updateOpendChests();
+      chestsContext.updateOpendChests(nextPosition);
+    }
+
+    if (
+      chestsContext.totalChest === chestsContext.opendChests.total &&
+      nextMove.door
+    ) {
+      alert("Você venceu");
+      window.location.reload();
     }
   });
 
