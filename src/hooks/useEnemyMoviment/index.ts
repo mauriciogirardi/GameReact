@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import useInterval from "@use-it/interval";
-import { EDirection } from "../../settings/constants";
-import {
-  handleNextPosition,
-  checkValueMoviment,
-} from "../../contexts/canvas/helpers";
+import { EDirection, EWalker } from "../../settings/constants";
+import { CanvasContext } from "../../contexts/canvas";
 
 export default (initialPosition: { x: number; y: number }) => {
+  const canvasContext = useContext(CanvasContext);
   const [positionState, setPositionState] = useState(initialPosition);
   const [direction, setDirection] = useState(EDirection.RIGHT);
 
@@ -15,11 +13,13 @@ export default (initialPosition: { x: number; y: number }) => {
     let directionArray = Object.values(EDirection);
     const randomDirection = directionArray[random];
 
-    const nextPosition = handleNextPosition(randomDirection, positionState);
+    const { nextMove, nextPosition } = canvasContext.updateCanvas(
+      randomDirection,
+      positionState,
+      EWalker.ENEMY
+    );
 
-    const isValidMoviment = checkValueMoviment(nextPosition);
-
-    if (isValidMoviment) {
+    if (nextMove.valid) {
       setDirection(randomDirection);
       setPositionState(nextPosition);
     }

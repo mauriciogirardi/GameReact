@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import useEventListener from "@use-it/event-listener";
-import { EDirection } from "../../settings/constants";
-import {
-  handleNextPosition,
-  checkValueMoviment,
-} from "../../contexts/canvas/helpers";
+import { EDirection, EWalker } from "../../settings/constants";
+import { CanvasContext } from "../../contexts/canvas";
+import { ChestsContext } from "../../contexts/chests";
 
 export default (initialPosition: { x: number; y: number }) => {
+  const canvasContext = useContext(CanvasContext);
+  const chestsContext = useContext(ChestsContext);
+
   const [positionState, setPositionState] = useState(initialPosition);
   const [direction, setDirection] = useState(EDirection.RIGHT);
 
@@ -17,14 +18,24 @@ export default (initialPosition: { x: number; y: number }) => {
       return;
     }
 
-    const nextPosition = handleNextPosition(directionKey, positionState);
+    const { nextMove, nextPosition } = canvasContext.updateCanvas(
+      directionKey,
+      positionState,
+      EWalker.HERO
+    );
 
-    const isValidMoviment = checkValueMoviment(nextPosition);
-
-    if(isValidMoviment) {
+    if (nextMove.valid) {
       setDirection(directionKey);
       setPositionState(nextPosition);
-    }  
+    }
+
+    if (nextMove.dead) {
+      alert("Você morreu!");
+    }
+
+    if (nextMove.chest) {
+      chestsContext.updateOpendChests();
+    }
   });
 
   return {

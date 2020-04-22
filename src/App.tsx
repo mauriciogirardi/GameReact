@@ -1,7 +1,6 @@
 import React from "react";
-import Board from "./components/Board";
 import { GAME_SIZE } from "./settings/constants";
-import { Debagger } from "./components/Debagger";
+import Game from "./components/Game";
 
 import "./App.css";
 
@@ -15,8 +14,7 @@ function App() {
           height: GAME_SIZE,
         }}
       >
-        <Debagger />
-        <Board />
+        <Game />
       </div>
     </div>
   );

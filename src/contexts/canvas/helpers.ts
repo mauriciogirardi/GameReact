@@ -1,4 +1,4 @@
-import { EDirection } from "../../settings/constants";
+import { EDirection, EWalker } from "../../settings/constants";
 
 export const handleNextPosition = (
   direction: EDirection,
@@ -57,17 +57,39 @@ export const canvas = [
   [WL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, WL],
   [WL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, WL],
   [WL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, CH, FL, WL],
-  [WL, HE, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, MD, FL, FL, WL],
+  [WL, HE, WL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, MD, FL, FL, WL],
   [WL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, FL, WL],
   [WL, WL, WL, WL, WL, WL, WL, WL, WL, WL, WL, WL, WL, WL, WL, WL, WL, WL, WL, WL],
 ];
 
 
-export const checkValueMoviment = (nextPosition: { x: number; y: number; }) => {
+export const checkValueMoviment = (nextPosition: { x: number; y: number; }, walker: EWalker) => {
   const canvasValue = canvas[nextPosition.y][nextPosition.x]
-  if(canvasValue === ECanvas.WALL) return false
-  if(canvasValue === ECanvas.CHEST) return
-  if(canvasValue === ECanvas.TRAP) return
 
-  return true
+  const result = walker === EWalker.HERO ? 
+  getHeroValidMoves(canvasValue) 
+  : getEnemyValidMoves(canvasValue)
+
+  return result
+}
+
+
+const getHeroValidMoves = (canvasValue: ECanvas) => {
+  return {
+    valid: canvasValue === ECanvas.FLOOR || canvasValue === ECanvas.CHEST || canvasValue === ECanvas.TRAP || canvasValue === ECanvas.MINI_DEMO || canvasValue === ECanvas.DEMO,
+    dead: canvasValue === ECanvas.TRAP || canvasValue === ECanvas.MINI_DEMO || canvasValue === ECanvas.DEMO,
+    chest: canvasValue === ECanvas.CHEST,
+    door: canvasValue === ECanvas.DOOR
+  }
+
+
+}
+
+const getEnemyValidMoves = (canvasValue: ECanvas) => {
+  return {
+    valid: canvasValue === ECanvas.FLOOR || canvasValue === ECanvas.HERO,
+    dead: false,
+    chest: false,
+    door: false
+  }
 }
