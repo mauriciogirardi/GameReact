@@ -1,5 +1,6 @@
 # GameReact
-Criando um game com Reactjs e Typescript e Css
+
+> this game was created with javascript, react js and typescript technologies I had the opportunity to work with typescript for the first time where I could learn a lot about lib
 
 
 
